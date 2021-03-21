@@ -25,7 +25,7 @@ class PaintFrame extends JFrame {
         this.r1 = new Rect(100, 100, 110, 20, Color.yellow, Color.gray);
         this.r2 = new Rect(110, 90, 120, 30, Color.red, Color.orange);
         this.r3 = new Rect(120, 80, 130, 40, Color.cyan, Color.pink);
-        this.r4 = new Rect(130, 70, 140, 50, Color.magenta, Color.blue);
+        this.r4 = new Rect(130, 70, 140, 50, Color.magenta, new Color(255, 60, 255));
         
     }
 
