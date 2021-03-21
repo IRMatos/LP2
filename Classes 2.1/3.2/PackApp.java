@@ -26,9 +26,9 @@ class PackApp extends JFrame {
         );
         this.setTitle("Java Packages");
         this.setSize(350, 350);
-        this.r1 = new Rect(50,50, 100,30);
-        this.e1 = new Ellipse(50,100, 100,30);
-        this.t1 = new Triangulo(150,110,70,180,140,110);
+        this.r1 = new Rect(50,50, 100,30, Color.pink, Color.red);
+        this.e1 = new Ellipse(50,100, 100,30, Color.magenta, Color.cyan);
+        this.t1 = new Triangulo(150, 110, 70, 180, 140, 110, Color.yellow);
     }
 
     public void paint (Graphics g) {
