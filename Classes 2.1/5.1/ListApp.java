@@ -34,7 +34,16 @@ class ListFrame extends JFrame {
                         int h = rand.nextInt(50);
                         rs.add(new Rect(x,y, w,h));
                         repaint();  // outer.repaint()
-                    }
+                    }else{
+                        if(evt.getKeyChar() == 'e'){
+                            int x = rand.nextInt(350);
+                            int y = rand.nextInt(350);
+                            int w = rand.nextInt(85);
+                            int h = rand.nextInt(85);
+                            Color contorn = new Color(rand.nextInt(255), rand.nextInt(255), rand.nextInt(255));
+                            Color bgc = new Color(rand.nextInt(255), rand.nextInt(255), rand.nextInt(255));
+                            es.add(new Ellipse(x, y, w, h, contorn, bgc));
+                            repaint();
                 }
             }
         );
