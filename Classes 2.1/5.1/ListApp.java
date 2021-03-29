@@ -63,6 +63,13 @@ class Rect {
         this.w = w;
         this.h = h;
     }
+   
+class Ellipse{
+    
+    int x,y;
+    int h,w;
+    Color contorn;
+    Color bgc;
   
      Ellipse (int x, int y, int w, int h, Color contorn, Color bgc) {
         this.x = x;
