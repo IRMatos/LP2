@@ -13,6 +13,7 @@ class ListApp {
 
 class ListFrame extends JFrame {
     ArrayList<Rect> rs = new ArrayList<Rect>();
+    ArrayList<Ellipse> es = new ArrayList<Ellipse>();
     Random rand = new Random();
 
     ListFrame () {
