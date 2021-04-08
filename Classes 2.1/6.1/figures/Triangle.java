@@ -1,13 +1,15 @@
-package figures.*;
+package figures;
 
 import java.awt.*;
+import java.awt.Graphics;
+import java.awt.geom.Line2D;
 
-public class Triangle {
-    private int x1,x2,x3;
+public class Triangl extends Figure {
+     	  int x1,x2,x3;
 	  private int y1,y2,y3;
-	   private Color fundo;
+	  private Color fundo;
 
-    public Triangle (int x1,int x2,int x3,int y1,int y2,int y3, Color fundo) {
+    public Triangl (int x1,int x2,int x3,int y1,int y2,int y3, Color fundo) {
         this.x1 = x1;
 	      this.x2 = x2;
 	      this.x3 = x3;
@@ -16,9 +18,14 @@ public class Triangle {
 	      this.y3 = y3;
 	      this.fundo = fundo;
     }
-
+    @Override
+    public void print () {
+        System.out.format("Retangulo de tamanho (%d,%d) na posicao (%d,%d,%d,%d).\n",
+            this.x1, this.x2, this.x3, this.y1,this.y2,this.y3);
+    }
+    @Override
     public void paint (Graphics g) {
 		Graphics2D g2d = (Graphics2D) g;
-		g2d.setColor(fundo);
+        g.drawPolygon(new int[] {x1, x2, x3}, new int[] {y1, y2, y3}, 3);
 	}
 }
