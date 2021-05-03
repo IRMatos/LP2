@@ -1,34 +1,24 @@
-package figures;
+package figures.*;
 
 import java.awt.*;
 
-public class Triangulo extends Figure {
-    Polygon Triangulo;
+public class Triangle {
+    private int x1,x2,x3;
+	  private int y1,y2,y3;
+	   private Color fundo;
 
-    public Triangulo (int x, int y,int w, int h, Color cordefundo, Color contorno) {
-        super(x, y, h, w, cordefundo, contorno);
-    }
-    
-
-    public void print () {
-        System.out.printf("Triangulo de tamanho (%d,%d) na posicao (%d,%d).\n",
-                this.w, this.h, this.x, this.y);
+    public Triangle (int x1,int x2,int x3,int y1,int y2,int y3, Color fundo) {
+        this.x1 = x1;
+	      this.x2 = x2;
+	      this.x3 = x3;
+        this.y1 = y1;
+	      this.y2 = y2;
+	      this.y3 = y3;
+	      this.fundo = fundo;
     }
 
     public void paint (Graphics g) {
-        Graphics2D g2d = (Graphics2D) g;
-
-        int[] yt = new int[]{y, y + h, y + h}; 
-        int[] xt = new int[]{x + w/2, x + w, x};
-
-        Polygon TrianguloObject = new Polygon(yt, xt, 3);
-
-        g2d.setStroke(new BasicStroke(3));
-
-        g2d.setColor(this.cordefundo);
-        g2d.fillPolygon(TrianguloObject);
-
-        g2d.setColor(this.contorno);
-        g2d.drawPolygon(TrianguloObject);
-    }
+		Graphics2D g2d = (Graphics2D) g;
+		g2d.setColor(fundo);
+	}
 }
