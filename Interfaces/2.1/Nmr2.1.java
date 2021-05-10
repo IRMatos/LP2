@@ -103,13 +103,15 @@ public class Triangle implements figuraCalculavel{
             return perimetro;
         }
       
-      ///////////////////////////////////////////////////////////////////////////////////////
-
+  
+############################################################
+  
 public interface Veiculo {
 
     public String getNome();
     public String getId();
-}
+}  
+ 
 public interface Motor {
 
     public String getModelo();
