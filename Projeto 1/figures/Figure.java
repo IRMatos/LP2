@@ -1,5 +1,7 @@
+package ivisible;
 package figures;
 
+import java.awt.Graphics;
 import java.awt.*;
 
 public abstract class Figure {
@@ -23,3 +25,7 @@ public abstract class Figure {
     }
 
 }
+
+public boolean clicked (int x, int y) {
+      return (this.x<=x && x<=this.x+this.w && this.y<=y && y<=this.y+this.h);
+    }
