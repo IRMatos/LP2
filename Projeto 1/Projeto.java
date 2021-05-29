@@ -16,18 +16,49 @@ class Projeto {
 
 class ListFrame extends JFrame {
     ArrayList<Figure> figs = new ArrayList<Figure>();
+    ArrayList<Button> buts = new ArrayList<Button>();
     Figure focus = null;
+    Button focus_but = null;
     Random rand = new Random();
+    int idx;
 
     ListFrame () {
-        
+	try {
+	    FileInputStream f = new FileInputStream("proj.bin");
+	    ObjectInputStream o = new ObjectInputStream(f);
+	    this.figs = (ArrayList<Figure>) o.readObject();
+	    o.close();
+	} catch (Exception x) {
+	    System.out.println("ERRO!");
+	}
+	    
+        this.addWindowListener (
+            new WindowAdapter() {
+                public void windowClosing (WindowEvent e) {
+		    try {
+		    FileOutputStream f = new FileOutputStream("proj.bin");
+			ObjectOutputStream o = new ObjectOutputStream(f);
+			o.writeObject(figs);
+			o.flush();
+			o.close();
+		    } catch (Exception x) {
+		    }
+                    System.exit(0);
+                }
+            }
+        );
+	
 	setFocusTraversalKeysEnabled(false);
-  
+	    
+	buts.add(new Button(1, new Ellipse(0,0,0,0,219,71,71,0,0,0)));
+	buts.add(new Button(2, new Rect(0,0,0,0,52,203,87,0,0,0)));
+	buts.add(new Button(3, new RoundRect(0,0,0,0,15,25,62,52,203,0,0,0)));
 	
 	this.addMouseListener(
 	    new MouseAdapter() {
 		public void mousePressed (MouseEvent evt) { 
 		    focus = null;
+		    focus_but = null;
 		    int x = evt.getX();
 		    int y = evt.getY();
 		    for (Figure fig: figs) {
@@ -40,7 +71,41 @@ class ListFrame extends JFrame {
 			    focus = null;
 			    repaint();
 			}
-                
+		    }
+		    for (Button but: buts) {
+		        if (but.clicked(x,y)) {
+			    focus_but = but;
+			    repaint();
+			    break;
+			}
+		    }
+			
+		    if (focus_but != null) {
+		        if (focus_but.idx == 1) {
+			    idx = 1;
+			}
+			else if (focus_but.idx == 2) {
+			    idx = 2;
+			}
+			else if (focus_but.idx == 3) {
+			    idx = 3;
+			}
+			}
+
+		    repaint();
+			
+			if ((focus_but == null) && (focus == null)) {
+				if (idx == 1) {
+			    	figs.add(new Ellipse(x,y, rand.nextInt(50),rand.nextInt(50),rand.nextInt(255),rand.nextInt(255),rand.nextInt(255),0,0,0));
+			}
+		        else if (idx == 2) {
+			    	figs.add(new Rect(x,y, rand.nextInt(50),rand.nextInt(50),rand.nextInt(255),rand.nextInt(255),rand.nextInt(255),0,0,0));
+			}
+				else if (idx == 3) {
+			    	figs.add(new RoundRect(x,y, rand.nextInt(50),rand.nextInt(50),20,15,rand.nextInt(255),rand.nextInt(255),rand.nextInt(255),0,0,0));
+			}
+				focus = figs.get(figs.size()-1); 
+		    }
 		    repaint();
 		}
 	    }
@@ -147,6 +212,9 @@ class ListFrame extends JFrame {
 	
 	if (focus != null) {  
 	    focus.paint(g, true);  
+	}
+	for (Button but: this.buts) {
+	    but.paint(g, but == focus_but);
 	}
     }
 }
