@@ -1,6 +1,9 @@
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
+
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
 import java.util.Random;
 import java.io.*;
@@ -24,7 +27,7 @@ class ListFrame extends JFrame {
 
     ListFrame () {
 	try {
-	    FileInputStream f = new FileInputStream("proj.bin");
+		FileInputStream f = new FileInputStream("proj.bin");
 	    ObjectInputStream o = new ObjectInputStream(f);
 	    this.figs = (ArrayList<Figure>) o.readObject();
 	    o.close();
@@ -53,7 +56,9 @@ class ListFrame extends JFrame {
 	buts.add(new Button(1, new Ellipse(0,0,0,0,219,71,71,0,0,0)));
 	buts.add(new Button(2, new Rect(0,0,0,0,52,203,87,0,0,0)));
 	buts.add(new Button(3, new RoundRect(0,0,0,0,15,25,62,52,203,0,0,0)));
-	
+	buts.add(new Button(4, new Arc(0,0,0,0,150,240,0,0,0,0,0,0)));
+	buts.add(new Button(5, new Poligono(0,0,0,0,145,20,20,0,0,0)));
+
 	this.addMouseListener(
 	    new MouseAdapter() {
 		public void mousePressed (MouseEvent evt) { 
@@ -90,22 +95,41 @@ class ListFrame extends JFrame {
 			else if (focus_but.idx == 3) {
 			    idx = 3;
 			}
+			else if (focus_but.idx == 4) {
+			    idx = 4;
+			}
+			else if (focus_but.idx == 5) {
+			    idx = 5;
+			}
 			}
 
 		    repaint();
-			
+
 			if ((focus_but == null) && (focus == null)) {
 				if (idx == 1) {
 			    	figs.add(new Ellipse(x,y, rand.nextInt(50),rand.nextInt(50),rand.nextInt(255),rand.nextInt(255),rand.nextInt(255),0,0,0));
+					focus = figs.get(figs.size()-1);
 			}
-		        else if (idx == 2) {
+		    	else if (idx == 2) {
 			    	figs.add(new Rect(x,y, rand.nextInt(50),rand.nextInt(50),rand.nextInt(255),rand.nextInt(255),rand.nextInt(255),0,0,0));
+					focus = figs.get(figs.size()-1);
 			}
 				else if (idx == 3) {
 			    	figs.add(new RoundRect(x,y, rand.nextInt(50),rand.nextInt(50),20,15,rand.nextInt(255),rand.nextInt(255),rand.nextInt(255),0,0,0));
+					focus = figs.get(figs.size()-1);
 			}
-				focus = figs.get(figs.size()-1); 
+				else if (idx == 4) {
+			    	figs.add(new Arc(x,y, rand.nextInt(50),rand.nextInt(50), rand.nextInt(180),rand.nextInt(280),rand.nextInt(255),rand.nextInt(255),rand.nextInt(255),0,0,0));
+			    	focus = figs.get(figs.size()-1);
 		    }
+				else if (idx == 5) {
+					figs.add(new Poligono(x,y,rand.nextInt(50),rand.nextInt(50),rand.nextInt(255),rand.nextInt(255),rand.nextInt(255),0,0,0));
+			    	focus = figs.get(figs.size()-1);
+		    }
+			
+			idx = 0; 
+		}
+
 		    repaint();
 		}
 	    }
@@ -135,12 +159,15 @@ class ListFrame extends JFrame {
             int h = rand.nextInt(50);
 		    int arcW = 25;
 		    int arcH = 10;
+			int Angulo1 = rand.nextInt(180);
+			int Angulo2 = rand.nextInt(280);
 		    int cfr = rand.nextInt(255);
             int cfg = rand.nextInt(255);
             int cfb = rand.nextInt(255);
             int ccr = rand.nextInt(255);
 		    int ccg = rand.nextInt(255);
 		    int ccb = rand.nextInt(255);
+
 		    
             if (evt.getKeyChar() == 'r') {
                 figs.add(new Rect(x, y, w, h, cfr, cfg, cfb, ccr, ccg, ccb));
@@ -150,10 +177,23 @@ class ListFrame extends JFrame {
                 figs.add(new Ellipse(x, y, w, h, cfr, cfg, cfb, ccr, ccg, ccb));
 		    	focus = figs.get(figs.size()-1);
 		    }
+			else if (evt.getKeyChar() == 'p') {
+		        figs.add(new Arc(x, y, w, h, Angulo1, Angulo2, cfr, cfg, cfb, ccr, ccg, ccb));
+		    	focus = figs.get(figs.size()-1);
+			}
 		    else if (evt.getKeyChar() == 'o') {
 		        figs.add(new RoundRect(x, y, w, h, arcW, arcH, cfr, cfg, cfb, ccr, ccg, ccb));
 		    	focus = figs.get(figs.size()-1);
 		    }
+			else if(evt.getKeyChar()=='p') {
+				figs.add(new Poligono(x,y,w,h,cfr, cfg, cfb, ccr, ccg, ccb));
+				focus = figs.get(figs.size()-1);	
+				
+			}
+			
+			else if (evt.getKeyChar()== 'b'){
+				figs.clear();
+			}
 	            for (Figure fig: figs) {
 		        if (focus == fig) {
 			    if (evt.getKeyCode() == KeyEvent.VK_DELETE) { 
@@ -186,6 +226,7 @@ class ListFrame extends JFrame {
 			    else if (evt.getKeyChar() == 'c') {  
 				fig.contorno(ccr,ccg,ccb);
 			    }
+
 			}
 			else if (evt.getKeyCode() == KeyEvent.VK_TAB) {
 			    focus = fig;
@@ -193,13 +234,14 @@ class ListFrame extends JFrame {
 			    figs.add(fig);
 			    break;
 			}
+
 		    }
 		    repaint();
                 }
             }
         );
 
-        this.setTitle("Projeto - O Projeto.");
+        this.setTitle("Projeto - Projeto X .");
         this.setSize(350, 350);
     }
 
