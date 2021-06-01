@@ -177,7 +177,7 @@ class ListFrame extends JFrame {
                 figs.add(new Ellipse(x, y, w, h, cfr, cfg, cfb, ccr, ccg, ccb));
 		    	focus = figs.get(figs.size()-1);
 		    }
-			else if (evt.getKeyChar() == 'p') {
+			else if (evt.getKeyChar() == 'k') {
 		        figs.add(new Arc(x, y, w, h, Angulo1, Angulo2, cfr, cfg, cfb, ccr, ccg, ccb));
 		    	focus = figs.get(figs.size()-1);
 			}
