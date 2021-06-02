@@ -37,6 +37,6 @@ public class Button implements IVisible {
     }
   
   public int getidx(){
-    return idx 
+    return idx; 
   }
 }
